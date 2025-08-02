@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: vault-demo
+  cloud:
+    vault:
+      uri: https://vault.local:8200
+      authentication: CERT
+      ssl:
+        cert-auth-path: cert
+        key-store: classpath:client-keystore.p12
+        key-store-password: changeit
+        key-store-type: PKCS12
+        trust-store: classpath:truststore.jks
+        trust-store-password: changeit
+        trust-store-type: JKS
+      kv:
+        enabled: true
+        backend: secret
+        profile-separator: '/'
+        default-context: application
+        application-name: ${spring.application.name}
+      config:
+        order: -10
+        lifecycle:
+          enabled: true
+          min-renewal: 10s
+          expiry-threshold: 60s
+
+  # Optional: Configure specific secret paths
+  config:
+    import: vault://
+
+logging:
+  level:
+    org.springframework.vault: DEBUG
+    org.springframework.web.client.RestTemplate: DEBUG
