@@ -277,17 +277,27 @@ vault write auth/cert/certs/web-cert \
 # Create policy for Spring Boot application
 echo "Creating web policy..."
 cat > policies/web-policy.hcl <<POLICY
-# Allow reading application secrets
+# Allow reading application secrets - exact path
+path "secret/data/application" {
+  capabilities = ["read"]
+}
+
+# Allow reading application secrets - with wildcard for subpaths
 path "secret/data/application/*" {
   capabilities = ["read"]
 }
 
-# Allow full access to vault-demo secrets
+# Allow access to vault-demo secrets - exact path
+path "secret/data/vault-demo" {
+  capabilities = ["create", "read", "update", "delete", "list"]
+}
+
+# Allow full access to vault-demo secrets - with wildcard
 path "secret/data/vault-demo/*" {
   capabilities = ["create", "read", "update", "delete", "list"]
 }
 
-# Allow listing secrets
+# Allow listing secrets metadata
 path "secret/metadata/*" {
   capabilities = ["list"]
 }
