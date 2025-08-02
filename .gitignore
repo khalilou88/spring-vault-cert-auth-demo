@@ -41,3 +41,4 @@ scripts/
 vault-credentials/
 /src/main/resources/client-keystore.p12
 /src/main/resources/truststore.jks
+/docker-compose.yml
