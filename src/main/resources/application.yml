@@ -34,3 +34,4 @@ logging:
   level:
     org.springframework.vault: DEBUG
     org.springframework.web.client.RestTemplate: DEBUG
+    org.springframework.cloud.vault: DEBUG
